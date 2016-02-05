@@ -320,3 +320,7 @@ button.home:hover {
     background: #FFD54F;
     cursor: pointer;
 }
+
+.yelp {
+    transform: scale(0.2, 0.2);
+}
