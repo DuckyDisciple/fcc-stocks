@@ -1,0 +1,15 @@
+header
+    .header-left
+        img.logo-header(src="/client/img/BLAH.png")
+    .header-right
+        .logged-in.hide
+            p Welcome, #[span#profile-display]!
+            nav
+                a.menu(href="/") HOME
+                p.divider |
+                a.menu(href="/places") MY PLACES
+                p.divider |
+                a.menu(href="/logout") LOGOUT
+        .not-logged-in
+            a.login(href="/login")
+                button.login-button LOGIN

@@ -7,14 +7,10 @@
     ---------------------------------- `-' ------------------------------- `--' ---------------
 
 
-Here is a voting app for Free Code Camp. It includes the following functionality:
+Here is a nightlife app for Free Code Camp. It includes the following functionality:
 
 -Authentication
--Create and save polls
--Share polls with friends
--See aggregated results of polls
--Delete polls
--Add any number of option to a polls
--Vote on other polls
--See charts of poll results
--Add more options to a previously created poll
+-Search for bars based on your location
+-Check into a bar
+-See who is checked in at a bar
+-Decide that you would rather stay home and watch Netflix

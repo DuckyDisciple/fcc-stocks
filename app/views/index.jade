@@ -1,0 +1,19 @@
+-var search = location || ""
+doctype html
+html
+    head
+        title Nyte Lyfe
+        link(rel="stylesheet" href="/client/css/main.css" type="text/css")
+    include ./includes/header.jade
+    body
+        .container-home
+            img.logo-main(src="/client/img/BLAH.png")
+            p.home-content
+            | Welcome to Nyte Lyfe
+            | Your one-stop site to look up bars in your area and see where your friends are going.
+            |
+            | You must be logged in to check in and have your location remembered.
+            .search
+                form(action="/search" method="get")
+                    input.search-bar(type="text" name="search-loc" value=savedSearch)
+                    input.submit(type="submit" value="SEARCH")

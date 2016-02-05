@@ -1,7 +1,7 @@
 {
-  "name": "Sir-Vey",
+  "name": "Nyte-Lyfe",
   "version": "1.0.0",
-  "description": "Voting app with user authentication",
+  "description": "App to check into bars in area",
   "main": "server.js",
   "scripts":{
     "start": "node server.js"
