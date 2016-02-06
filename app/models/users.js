@@ -10,9 +10,12 @@ var User = new Schema({
         email: String,
         token: String
     },
-    polls:[{
+    location: String,
+    places:[{
         id: String,
-        name: String
+        name: String,
+        desc: String,
+        img: String
     }]
 });
 
