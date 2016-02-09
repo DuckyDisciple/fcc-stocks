@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title Search Results
+        link(rel="stylesheet" href="/client/css/main.css" type="text/css")
+    include ./includes/header.jade
+    body
+        .container
+            img.logo-header(src="/client/img/BLAH.png")
+            .search
+                form(action="/search" method="get")
+                    input.search-bar(type="text" name="loc" value=savedSearch)
+                    input.submit(type="submit" value="SEARCH")
+            .results
+                h3.results-header Search Results
+                each val in bars
+                    .result(id=val.id)
+                        img.barImg(src=val.img)
+                        a.barLink(href="/bar/"+val.id)
+                            h2.barName= val.name
+                        .going
+                        p.barDesc= val.desc

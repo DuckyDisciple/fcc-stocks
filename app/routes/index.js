@@ -54,7 +54,7 @@ module.exports=function(app, passport){
                         return {
                             name: val.name,
                             id: val.id,
-                            img: val.img_url,
+                            img: val.image_url,
                             desc: val.snippet_text
                         };
                     });
