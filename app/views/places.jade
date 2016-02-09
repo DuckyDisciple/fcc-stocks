@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        title= placeName
+        link(rel="stylesheet" href="/client/css/main.css" type="text/css")
+    include ./includes/header.jade
+    body
+        .container
+            h1.name= placeName
+            img.thumb(src=placeImg)
+            p.desc= placeDesc
+            .going
+                h3.goingHeader Who's going?
+                ul.goingList
+                each val in placeUsers
+                    li.goingItem= val
