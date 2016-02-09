@@ -2,8 +2,8 @@
 
 var path = process.cwd();
 var request = require('request');
+var Yelp = require('yelp');
 
-var yelpApi = "https://api.yelp.com/v2/search?term=bar&limit=10&location=";
 // var PollHandler = require(process.cwd()+"/app/controllers/pollHandler.server.js");
 
 var UserHandler = require(process.cwd()+"/app/controllers/userHandler.server.js");
@@ -37,14 +37,32 @@ module.exports=function(app, passport){
     //         res.redirect('/');
     //     });
     
-    app.route('/search/:location')
+    app.route('/search')
         .get(function(req, res) {
-            request(yelpApi+req.params.location, function(error, response, body){
-                if(!error && response.statusCode == 200){
-                    var results = JSON.parse(body);
-                    res.render('searchResults',{location: req.params.location, results: results});
-                }
+            var location = req.query.loc;
+            
+            var yelp = new Yelp({
+                consumer_key:process.env.YELP_KEY,
+                consumer_secret: process.env.YELP_SECRET,
+                token: process.env.YELP_TOKEN,
+                token_secret: process.env.YELP_TOKEN_SECRET
             });
+            
+            yelp.search({term: 'bar', location: location, limit: 10})
+                .then(function(data){
+                    var bars = data.businesses.map(function(val){
+                        return {
+                            name: val.name,
+                            id: val.id,
+                            img: val.img_url,
+                            desc: val.snippet_text
+                        };
+                    });
+                    res.render('searchResults',{bars: bars});
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
         });
     
     // app.route('/edit')
