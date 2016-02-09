@@ -6,16 +6,19 @@ html
     include ./includes/header.jade
     body
         .container
+            p.bar-id(display="none")= bar.id
             a.yelpLink(src=bar.url)
                 p.bar-name= bar.name
             img.bar-thumb(src=bar.img)
             .details
                 p.bar-phone= bar.phone
                 p.bar-desc= bar.desc
-            .goingList
+            .going-div
                 h3.going-header Who's going?
                 button.me-too Me Too!
                 button.nah.hide Nah...
                 ul.going-list
                 each val in visitors
                     li.going-item= val
+    script(type="text/javascript" src="/common/ajax-functions.js")
+    script(type="text/javascript" src="/controllers/userController.client.js")

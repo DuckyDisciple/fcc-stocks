@@ -2,33 +2,37 @@
 
 (function(){
     var displayName = document.querySelector("#profile-display") || null;
-    var signedInDiv = document.querySelector(".signed-in") || null;
-    var notSignedInDiv = document.querySelector(".not-signed-in") || null;
+    var loggedInDiv = document.querySelector(".logged-in") || null;
+    var notLoggedInDiv = document.querySelector(".not-logged-in") || null;
     
     var checkInButton = document.querySelector(".me-too") || null;
     var checkOutButton = document.querySelector(".nah") || null;
     var userUL = document.querySelector(".going-list") || null;
+    var barTitle = document.querySelector(".bar-name") || null;
+    var barId = document.querySelector(".bar-id") || null;
     
     // var displayName = document.querySelector("#profile-display") || null;
     
     // var apiUrlGit = appUrl + '/api/git/:id';
     var apiUrl = appUrl + '/api/:id';
-    var checkInUrl = appUrl + '/api/checkIn/:id/:name';
+    var checkInUrl = appUrl + '/api/checkIn/';
     var checkOutUrl = appUrl + '/api/checkOut/:id';
     var placesUrl = appUrl + '/api/places';
+    var userListUrl = appUrl + '/api/users/';
     
     function updateHtmlElement(data, element, userProperty){
         if(userProperty==="displayName"){
             var fullName = data[userProperty];
             var firstName = fullName.substring(0,fullName.lastIndexOf(' '));
         }
-        element.innerHTML = firstName;
+        if(element !== null)
+            element.innerHTML = firstName;
     }
     
     function updatePlacesList(userList,element){
         for(var i=0; i< userList.length; i++){
             var item = document.createElement("li");
-            item.innerHTML=userList[i][userProperty];
+            item.innerHTML=userList[i];
             element.appendChild(item);
         }
     }
@@ -67,8 +71,8 @@
         
         if(userObject.email!==undefined){
             // if(divG!==null) divG.className = "profile";
-            signedInDiv.className = signedInDiv.className.replace(/\bhide\b/g,'');
-            notSignedInDiv.classList.add("hide");
+            loggedInDiv.className = loggedInDiv.className.replace(/\bhide\b/g,'');
+            notLoggedInDiv.classList.add("hide");
         }
         
         if(displayName!==null){
@@ -90,13 +94,18 @@
         // }
     }));
     
-    checkInButton.addEventListener("click",function(){
-        ajaxFunctions.ajaxRequest("POST",checkInUrl,function(){
-            ajaxFunctions.ajaxRequest("GET",placesUrl,function(data) {
-                updatePlacesList(data, userUL);
+    if(checkInButton !== null){
+        checkInButton.addEventListener("click",function(){
+            var myId = barId.innerHTML;
+            var myName = barTitle.innerHTML;
+            var postUrl = checkInUrl + myId + "/" + myName;
+            ajaxFunctions.ajaxRequest("POST",postUrl,function(){
+                ajaxFunctions.ajaxRequest("GET",userListUrl+myId,function(data) {
+                    updatePlacesList(JSON.parse(data), userUL);
+                });
             });
+            
         });
-        
-    });
+    }
     
 })();

@@ -5,7 +5,7 @@ var Users = require("../models/users.js");
 function UserHandler(){
     
     this.checkIn = function(req,res){
-        var myPlace = {id:req.params.barId,name:req.params.barName};
+        var myPlace = {id:req.params.id,name:req.params.name};
         Users.findOneAndUpdate({'google.id': req.user.google.id},{$push: {places: myPlace}})
             .exec(function(err,data){
                 if(err) throw err;
@@ -19,7 +19,7 @@ function UserHandler(){
             .exec(function(err, data) {
                 if(err) throw err;
                 
-                req.json(data);
+                res.json(data);
             });
     };
     
@@ -35,7 +35,16 @@ function UserHandler(){
     };
     
     // this.setLocation
-    // this.getCheckIns
+    this.getCheckIns = function(req,res){
+        Users.find({'places.id':req.params.id})
+            .exec(function(err,data){
+                if(err) return res.json(err);
+                var users = data.map(function(doc){
+                    return doc.google.displayName;
+                });
+                return res.json(users);
+            });
+    };
 }
 
 module.exports = UserHandler;

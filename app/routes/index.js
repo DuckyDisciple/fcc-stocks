@@ -31,16 +31,16 @@ module.exports=function(app, passport){
             res.render('index',{});
         });
         
-    // app.route('/login')
-    //     .get(function(req,res){
-    //         res.sendFile(path+"/client/login.html");
-    //     });
+    app.route('/login')
+        .get(function(req,res){
+            res.sendFile(path+"/client/login.html");
+        });
     
-    // app.route('/logout')
-    //     .get(function(req, res) {
-    //         req.logout();
-    //         res.redirect('/');
-    //     });
+    app.route('/logout')
+        .get(function(req, res) {
+            req.logout();
+            res.redirect('/');
+        });
     
     app.route('/search')
         .get(function(req, res) {
@@ -68,6 +68,7 @@ module.exports=function(app, passport){
             yelp.business(req.params.id,function(err, data){
                 if(err) throw err;
                 var bar = {
+                    id: data.id,
                     name: data.name,
                     img: data.image_url,
                     phone: data.display_phone,
@@ -86,6 +87,9 @@ module.exports=function(app, passport){
     
     app.route('/api/places')
         .get(isLoggedIn, userHandler.getPlaces);
+    
+    app.route('/api/users/:id')
+        .get(userHandler.getCheckIns);
     
     // app.route('/api/location/:loc')
     //     .post(isLoggedIn, userHandler.setLocation);
@@ -129,19 +133,19 @@ module.exports=function(app, passport){
     //         res.render('error',{});
     //     });
     
-    // app.route('/api/:id')
-    //     .get(isLoggedIn, function(req, res){
-    //         res.json(req.user.google);
-    //     });
+    app.route('/api/:id')
+        .get(isLoggedIn, function(req, res){
+            res.json(req.user.google);
+        });
     
-    // app.route('/auth/google')
-    //     .get(passport.authenticate('google',{ scope: ['profile','email'] }));
+    app.route('/auth/google')
+        .get(passport.authenticate('google',{ scope: ['profile','email'] }));
     
-    // app.route('/auth/google/callback')
-    //     .get(passport.authenticate('google',{
-    //         successRedirect: '/',
-    //         failureRedirect: '/'
-    //     }));
+    app.route('/auth/google/callback')
+        .get(passport.authenticate('google',{
+            successRedirect: '/',
+            failureRedirect: '/'
+        }));
     
     // app.route('/api/:id/clicks')
     //     .get(isLoggedIn, clickHandler.getClicks)
