@@ -6,11 +6,16 @@ html
     include ./includes/header.jade
     body
         .container
-            h1.name= placeName
-            img.thumb(src=placeImg)
-            p.desc= placeDesc
-            .going
-                h3.goingHeader Who's going?
-                ul.goingList
-                each val in placeUsers
-                    li.goingItem= val
+            a.yelpLink(src=bar.url)
+                p.bar-name= bar.name
+            img.bar-thumb(src=bar.img)
+            .details
+                p.bar-phone= bar.phone
+                p.bar-desc= bar.desc
+            .goingList
+                h3.going-header Who's going?
+                button.me-too Me Too!
+                button.nah.hide Nah...
+                ul.going-list
+                each val in visitors
+                    li.going-item= val

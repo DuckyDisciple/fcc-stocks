@@ -1,23 +1,21 @@
 "use strict";
 
 (function(){
-    // var divGit = document.querySelector("#github-profile") || null;
-    // var profileIdGit = document.querySelector("#profile-git-id") || null;
-    // var usernameGit = document.querySelector("#profile-git-username") || null;
-    // var displayNameGit = document.querySelector("#profile-git-display") || null;
-    // var publicReposGit = document.querySelector("#profile-git-repos") || null;
-
-    // var divG = document.querySelector("#google-profile") || null;
-    // var profileIdG = document.querySelector("#profile-g-id") || null;
-    // var email = document.querySelector("#profile-email") || null;
     var displayName = document.querySelector("#profile-display") || null;
     var signedInDiv = document.querySelector(".signed-in") || null;
     var notSignedInDiv = document.querySelector(".not-signed-in") || null;
+    
+    var checkInButton = document.querySelector(".me-too") || null;
+    var checkOutButton = document.querySelector(".nah") || null;
+    var userUL = document.querySelector(".going-list") || null;
     
     // var displayName = document.querySelector("#profile-display") || null;
     
     // var apiUrlGit = appUrl + '/api/git/:id';
     var apiUrl = appUrl + '/api/:id';
+    var checkInUrl = appUrl + '/api/checkIn/:id/:name';
+    var checkOutUrl = appUrl + '/api/checkOut/:id';
+    var placesUrl = appUrl + '/api/places';
     
     function updateHtmlElement(data, element, userProperty){
         if(userProperty==="displayName"){
@@ -25,6 +23,14 @@
             var firstName = fullName.substring(0,fullName.lastIndexOf(' '));
         }
         element.innerHTML = firstName;
+    }
+    
+    function updatePlacesList(userList,element){
+        for(var i=0; i< userList.length; i++){
+            var item = document.createElement("li");
+            item.innerHTML=userList[i][userProperty];
+            element.appendChild(item);
+        }
     }
     
     // ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",apiUrlGit,function(data){
@@ -83,4 +89,14 @@
         //     updateHtmlElement(userObject,displayNameG,'displayName');
         // }
     }));
+    
+    checkInButton.addEventListener("click",function(){
+        ajaxFunctions.ajaxRequest("POST",checkInUrl,function(){
+            ajaxFunctions.ajaxRequest("GET",placesUrl,function(data) {
+                updatePlacesList(data, userUL);
+            });
+        });
+        
+    });
+    
 })();

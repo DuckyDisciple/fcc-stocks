@@ -1,9 +1,14 @@
 "use strict";
 
 var path = process.cwd();
-var request = require('request');
-var Yelp = require('yelp');
 
+var Yelp = require('yelp');
+var yelp = new Yelp({
+                consumer_key:process.env.YELP_KEY,
+                consumer_secret: process.env.YELP_SECRET,
+                token: process.env.YELP_TOKEN,
+                token_secret: process.env.YELP_TOKEN_SECRET
+            });
 // var PollHandler = require(process.cwd()+"/app/controllers/pollHandler.server.js");
 
 var UserHandler = require(process.cwd()+"/app/controllers/userHandler.server.js");
@@ -41,13 +46,6 @@ module.exports=function(app, passport){
         .get(function(req, res) {
             var location = req.query.loc;
             
-            var yelp = new Yelp({
-                consumer_key:process.env.YELP_KEY,
-                consumer_secret: process.env.YELP_SECRET,
-                token: process.env.YELP_TOKEN,
-                token_secret: process.env.YELP_TOKEN_SECRET
-            });
-            
             yelp.search({term: 'bar', location: location, limit: 10})
                 .then(function(data){
                     var bars = data.businesses.map(function(val){
@@ -64,6 +62,33 @@ module.exports=function(app, passport){
                     console.log(err);
                 });
         });
+    
+    app.route('/bar/:id')
+        .get(function(req, res) {
+            yelp.business(req.params.id,function(err, data){
+                if(err) throw err;
+                var bar = {
+                    name: data.name,
+                    img: data.image_url,
+                    phone: data.display_phone,
+                    desc: data.snippet_text,
+                    url: data.url
+                };
+                res.render('places',{bar:bar, visitors:[]});
+            });
+        });
+    
+    app.route('/api/checkIn/:id/:name')
+        .post(isLoggedIn, userHandler.checkIn);
+    
+    app.route('/api/checkOut/:id')
+        .delete(isLoggedIn, userHandler.checkOut);
+    
+    app.route('/api/places')
+        .get(isLoggedIn, userHandler.getPlaces);
+    
+    // app.route('/api/location/:loc')
+    //     .post(isLoggedIn, userHandler.setLocation);
     
     // app.route('/edit')
     //     .get(isLoggedIn, function(req, res) {

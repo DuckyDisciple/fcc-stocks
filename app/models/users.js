@@ -13,9 +13,7 @@ var User = new Schema({
     location: String,
     places:[{
         id: String,
-        name: String,
-        desc: String,
-        img: String
+        name: String
     }]
 });
 
