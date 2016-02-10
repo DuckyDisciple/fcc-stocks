@@ -26,7 +26,7 @@ function UserHandler(){
     this.checkOut = function(req,res){
         Users.findOneAndUpdate(
             {'google.id':req.user.google.id},
-            {$pull: {places: {id:req.params.barId}}})
+            {$pull: {places: {id:req.params.id}}})
             .exec(function(err, data) {
                 if(err) throw err;
                 

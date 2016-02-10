@@ -16,7 +16,7 @@
     // var apiUrlGit = appUrl + '/api/git/:id';
     var apiUrl = appUrl + '/api/:id';
     var checkInUrl = appUrl + '/api/checkIn/';
-    var checkOutUrl = appUrl + '/api/checkOut/:id';
+    var checkOutUrl = appUrl + '/api/checkOut/';
     var placesUrl = appUrl + '/api/places';
     var userListUrl = appUrl + '/api/users/';
     
@@ -30,6 +30,9 @@
     }
     
     function updatePlacesList(userList,element){
+        while(element.firstChild){
+            element.removeChild(element.firstChild);
+        }
         for(var i=0; i< userList.length; i++){
             var item = document.createElement("li");
             item.innerHTML=userList[i];
@@ -102,10 +105,25 @@
             ajaxFunctions.ajaxRequest("POST",postUrl,function(){
                 ajaxFunctions.ajaxRequest("GET",userListUrl+myId,function(data) {
                     updatePlacesList(JSON.parse(data), userUL);
+                    checkInButton.className += " hide";
+                    checkOutButton.className = checkOutButton.className.replace(/\bhide\b/g,'');
                 });
             });
             
         });
+    }
+    if(checkOutButton !== null){
+        checkOutButton.addEventListener("click",function() {
+            var myId = barId.innerHTML;
+            var delUrl = checkOutUrl + myId;
+            ajaxFunctions.ajaxRequest("DELETE",delUrl,function(){
+                ajaxFunctions.ajaxRequest("GET",userListUrl+myId,function(data) {
+                    updatePlacesList(JSON.parse(data), userUL);
+                    checkInButton.className = checkInButton.className.replace(/\bhide\b/g,'');
+                    checkOutButton.className += " hide";
+                })
+            })
+        })
     }
     
 })();
