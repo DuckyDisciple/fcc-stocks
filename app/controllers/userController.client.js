@@ -19,6 +19,7 @@
     var checkOutUrl = appUrl + '/api/checkOut/';
     var placesUrl = appUrl + '/api/places';
     var userListUrl = appUrl + '/api/users/';
+    var isGoingApi = appUrl + '/api/going/';
     
     function updateHtmlElement(data, element, userProperty){
         if(userProperty==="displayName"){
@@ -33,69 +34,58 @@
         while(element.firstChild){
             element.removeChild(element.firstChild);
         }
-        for(var i=0; i< userList.length; i++){
-            var item = document.createElement("li");
-            item.innerHTML=userList[i];
-            element.appendChild(item);
+        if(userList.length === 0){
+            var nobody = document.createElement("li");
+            nobody.innerHTML = "Nobody is going here yet";
+            element.appendChild(nobody);
+        }else{
+            for(var i=0; i< userList.length; i++){
+                var item = document.createElement("li");
+                item.innerHTML=userList[i];
+                element.appendChild(item);
+            }
         }
     }
     
-    // ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",apiUrlGit,function(data){
-    //     var userObject = JSON.parse(data);
-        
-    //     if(userObject.username!==undefined){
-    //         if(divGit!==null) divGit.className = "profile";
-    //     }
-        
-    //     if(displayName!==null){
-    //         if(userObject.displayName!==undefined){
-    //             updateHtmlElement(userObject,displayName,'displayName');
-    //         }else if(userObject.username!==undefined){
-    //             updateHtmlElement(userObject,displayName,'username');
-    //         }
-    //     }
-        
-    //     if(profileIdGit!==null){
-    //         updateHtmlElement(userObject,profileIdGit,'id');
-    //     }
-    //     if(displayNameGit!==null){
-    //         updateHtmlElement(userObject,displayNameGit,'displayName');
-    //     }
-    //     if(usernameGit!==null){
-    //         updateHtmlElement(userObject,usernameGit,'username');
-    //     }
-    //     if(publicReposGit!==null){
-    //         updateHtmlElement(userObject,publicReposGit,'publicRepos');
-    //     }
-    // }));
-    
     ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",apiUrl,function(data){
-        var userObject = JSON.parse(data);
+        try{
+            var userObject = JSON.parse(data);
         
-        if(userObject.email!==undefined){
-            // if(divG!==null) divG.className = "profile";
-            loggedInDiv.className = loggedInDiv.className.replace(/\bhide\b/g,'');
-            notLoggedInDiv.classList.add("hide");
-        }
-        
-        if(displayName!==null){
-            if(userObject.displayName!==undefined){
-                updateHtmlElement(userObject,displayName,'displayName');
-            }else if(userObject.email!==undefined){
-                updateHtmlElement(userObject,displayName,'email');
+            if(userObject.email!==undefined){
+                loggedInDiv.className = loggedInDiv.className.replace(/\bhide\b/g,'');
+                notLoggedInDiv.classList.add("hide");
             }
+            
+            if(displayName!==null){
+                if(userObject.displayName!==undefined){
+                    updateHtmlElement(userObject,displayName,'displayName');
+                }else if(userObject.email!==undefined){
+                    updateHtmlElement(userObject,displayName,'email');
+                }
+            }
+        }catch(error){
+            //not logged in
         }
-        
-        // if(profileIdG!==null){
-        //     updateHtmlElement(userObject,profileIdG,'id');
-        // }
-        // if(emailG!==null){
-        //     updateHtmlElement(userObject,emailG,'email');
-        // }
-        // if(displayNameG!==null){
-        //     updateHtmlElement(userObject,displayNameG,'displayName');
-        // }
     }));
+    
+    if(userUL !== null){
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",userListUrl+barId.innerHTML,function(data) {
+            updatePlacesList(JSON.parse(data),userUL);
+        }));
+        
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",isGoingApi+barId.innerHTML,function(data) {
+            try{
+                var userListed = JSON.parse(data).found;
+                if(userListed){
+                    checkOutButton.className = checkOutButton.className.replace(/\bhide\b/g,'');
+                }else{
+                    checkInButton.className = checkInButton.className.replace(/\bhide\b/g,'');
+                }
+            }catch(error){
+                //not logged in
+            }
+        }));
+    }
     
     if(checkInButton !== null){
         checkInButton.addEventListener("click",function(){

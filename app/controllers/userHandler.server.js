@@ -45,6 +45,18 @@ function UserHandler(){
                 return res.json(users);
             });
     };
+    
+    this.isCheckedIn = function(req,res){
+        Users.find({'google.id':req.user.google.id,'places.id':req.params.id})
+            .exec(function(err, data) {
+                if(err) res.json({found:false});
+                if(data.length>0){
+                    res.json({found:true});
+                }else{
+                    res.json({found:false});
+                }
+            });
+    };
 }
 
 module.exports = UserHandler;

@@ -90,6 +90,9 @@ module.exports=function(app, passport){
     
     app.route('/api/users/:id')
         .get(userHandler.getCheckIns);
+        
+    app.route('/api/going/:id')
+        .get(isLoggedIn, userHandler.isCheckedIn);
     
     // app.route('/api/location/:loc')
     //     .post(isLoggedIn, userHandler.setLocation);

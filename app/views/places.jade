@@ -1,3 +1,4 @@
+-var formattedPhone = bar.phone.substr(0,3)==="+1-" ? bar.phone.substr(3) : bar.phone
 doctype html
 html
     head
@@ -6,16 +7,16 @@ html
     include ./includes/header.jade
     body
         .container
-            p.bar-id(display="none")= bar.id
+            p.bar-id(style="display:none")= bar.id
             a.yelpLink(src=bar.url)
                 p.bar-name= bar.name
             img.bar-thumb(src=bar.img)
             .details
-                p.bar-phone= bar.phone
+                p.bar-phone= formattedPhone
                 p.bar-desc= bar.desc
             .going-div
                 h3.going-header Who's going?
-                button.me-too Me Too!
+                button.me-too.hide Me Too!
                 button.nah.hide Nah...
                 ul.going-list
                 each val in visitors
