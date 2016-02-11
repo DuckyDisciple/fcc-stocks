@@ -6,7 +6,7 @@ function UserHandler(){
     
     this.checkIn = function(req,res){
         var myPlace = {id:req.params.id,name:req.params.name};
-        Users.findOneAndUpdate({'google.id': req.user.google.id},{$push: {places: myPlace}})
+        Users.findOneAndUpdate({'google.id': req.user.google.id},{$addToSet: {places: myPlace}})
             .exec(function(err,data){
                 if(err) throw err;
                 
@@ -19,7 +19,7 @@ function UserHandler(){
             .exec(function(err, data) {
                 if(err) throw err;
                 
-                res.json(data);
+                res.json(data.places);
             });
     };
     
@@ -35,6 +35,7 @@ function UserHandler(){
     };
     
     // this.setLocation
+    
     this.getCheckIns = function(req,res){
         Users.find({'places.id':req.params.id})
             .exec(function(err,data){

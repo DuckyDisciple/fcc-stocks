@@ -63,6 +63,11 @@ module.exports=function(app, passport){
                 });
         });
     
+    app.route('/profile')
+        .get(function(req, res) {
+            res.render('profile',{});
+        });
+    
     app.route('/bar/:id')
         .get(function(req, res) {
             yelp.business(req.params.id,function(err, data){

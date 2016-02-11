@@ -1,8 +1,8 @@
--var formattedPhone = bar.phone.substr(0,3)==="+1-" ? bar.phone.substr(3) : bar.phone
+-var formattedPhone = (bar.phone.substr(0,3)==="+1-" ? bar.phone.substr(3) : bar.phone)
 doctype html
 html
     head
-        title= placeName
+        title= bar.name
         link(rel="stylesheet" href="/client/css/main.css" type="text/css")
     include ./includes/header.jade
     body

@@ -11,6 +11,8 @@
     var barTitle = document.querySelector(".bar-name") || null;
     var barId = document.querySelector(".bar-id") || null;
     
+    var myPlacesUL = document.querySelector('.places-list') || null;
+    
     // var displayName = document.querySelector("#profile-display") || null;
     
     // var apiUrlGit = appUrl + '/api/git/:id';
@@ -114,6 +116,27 @@
                 })
             })
         })
+    }
+    
+    if(myPlacesUL !== null){
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",placesUrl,function(data) {
+            var placesData = JSON.parse(data);
+            if(placesData.length === 0){
+                var nobody = document.createElement("li");
+                nobody.innerHTML = "You haven't checked-in anywhere yet";
+                myPlacesUL.appendChild(nobody);
+            }else{
+                for(var i=0; i< placesData.length; i++){
+                    var placeLink = document.createElement("a");
+                    placeLink.className = "my-place-link";
+                    placeLink.setAttribute("href",appUrl+"/bar/"+placesData[i].id);
+                    placeLink.innerHTML = placesData[i].name;
+                    var placeListing = document.createElement("li");
+                    placeListing.appendChild(placeLink);
+                    myPlacesUL.appendChild(placeListing);
+                }
+            }
+        }));
     }
     
 })();
