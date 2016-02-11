@@ -34,7 +34,21 @@ function UserHandler(){
             });
     };
     
-    // this.setLocation
+    this.setLocation = function(userId,location){
+        Users.findOneAndUpdate({'google.id':userId},{$set: {'location':location}})
+        .exec(function(err,data){
+            if(err)throw err;
+            // console.log(data);
+        });
+    };
+    
+    this.getLocation = function(req,res){
+        Users.findOne({'google.id':req.user.google.id},{location:1,_id:0})
+            .exec(function(err,data){
+                if(err) throw err;
+                res.json(data);
+            })
+    }
     
     this.getCheckIns = function(req,res){
         Users.find({'places.id':req.params.id})

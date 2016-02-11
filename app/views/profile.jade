@@ -6,6 +6,7 @@ html
     include ./includes/header.jade
     body
         h1.heading My Places
+        p.saved-location Saved Location: #[span.location-span]
         ul.places-list
         script(type="text/javascript" src="/common/ajax-functions.js")
         script(type="text/javascript" src="/controllers/userController.client.js")

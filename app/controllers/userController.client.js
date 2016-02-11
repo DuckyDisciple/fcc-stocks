@@ -12,6 +12,7 @@
     var barId = document.querySelector(".bar-id") || null;
     
     var myPlacesUL = document.querySelector('.places-list') || null;
+    var locationSpan = document.querySelector('.location-span') || null;
     
     // var displayName = document.querySelector("#profile-display") || null;
     
@@ -22,6 +23,7 @@
     var placesUrl = appUrl + '/api/places';
     var userListUrl = appUrl + '/api/users/';
     var isGoingApi = appUrl + '/api/going/';
+    var savedLocationApi = appUrl + '/api/location';
     
     function updateHtmlElement(data, element, userProperty){
         if(userProperty==="displayName"){
@@ -119,6 +121,15 @@
     }
     
     if(myPlacesUL !== null){
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",savedLocationApi,function(data) {
+            var savedLocData = JSON.parse(data);
+            if(savedLocData.location){
+                locationSpan.innerHTML = savedLocData.location;
+            }else{
+                locationSpan.innerHTML = "No location saved";
+            }
+        }));
+        
         ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",placesUrl,function(data) {
             var placesData = JSON.parse(data);
             if(placesData.length === 0){

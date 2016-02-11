@@ -46,6 +46,10 @@ module.exports=function(app, passport){
         .get(function(req, res) {
             var location = req.query.loc;
             
+            if(req.user){
+                userHandler.setLocation(req.user.google.id,location);
+            }
+            
             yelp.search({term: 'bar', location: location, limit: 10})
                 .then(function(data){
                     var bars = data.businesses.map(function(val){
@@ -64,7 +68,7 @@ module.exports=function(app, passport){
         });
     
     app.route('/profile')
-        .get(function(req, res) {
+        .get(isLoggedIn, function(req, res) {
             res.render('profile',{});
         });
     
@@ -98,6 +102,9 @@ module.exports=function(app, passport){
         
     app.route('/api/going/:id')
         .get(isLoggedIn, userHandler.isCheckedIn);
+        
+    app.route('/api/location')
+        .get(isLoggedIn, userHandler.getLocation);
     
     // app.route('/api/location/:loc')
     //     .post(isLoggedIn, userHandler.setLocation);
