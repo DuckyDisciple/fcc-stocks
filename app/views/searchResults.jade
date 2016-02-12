@@ -6,7 +6,7 @@ html
     include ./includes/header.jade
     body
         .container
-            img.logo-header(src="/client/img/BLAH.png")
+            img.logo-header(src="/client/img/NyteLyfeLogo.png")
             .search
                 form(action="/search" method="get")
                     input.search-bar(type="text" name="loc" value=savedSearch)
@@ -19,3 +19,5 @@ html
                         a.barLink(href="/bar/"+val.id)
                             h2.barName= val.name
                         p.barDesc= val.desc
+        script(type="text/javascript" src="/common/ajax-functions.js")
+        script(type="text/javascript" src="/controllers/userController.client.js")
