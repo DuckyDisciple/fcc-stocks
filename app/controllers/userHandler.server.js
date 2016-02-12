@@ -72,6 +72,18 @@ function UserHandler(){
                 }
             });
     };
+    
+    this.loginRedirect = function(req,res){
+        Users.findOne({'google.id':req.user.google.id})
+            .exec(function(err,data){
+                if(err) throw err;
+                if(data.location){
+                    res.redirect('/search?loc='+data.location);
+                }else{
+                    res.redirect('/');
+                }
+            })
+    }
 }
 
 module.exports = UserHandler;

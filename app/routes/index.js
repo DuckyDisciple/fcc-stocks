@@ -42,6 +42,9 @@ module.exports=function(app, passport){
             res.redirect('/');
         });
     
+    app.route('/redirect')
+        .get(userHandler.loginRedirect);
+    
     app.route('/search')
         .get(function(req, res) {
             var location = req.query.loc;
@@ -158,7 +161,7 @@ module.exports=function(app, passport){
     
     app.route('/auth/google/callback')
         .get(passport.authenticate('google',{
-            successRedirect: '/',
+            successRedirect: '/redirect',
             failureRedirect: '/'
         }));
     
