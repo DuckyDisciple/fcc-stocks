@@ -8,7 +8,7 @@ html
     body
         .container
             p.bar-id(style="display:none")= bar.id
-            a.yelpLink(src=bar.url)
+            a.yelpLink(href=bar.url)
                 p.bar-name= bar.name
             img.bar-thumb(src=bar.img)
             .details
@@ -16,10 +16,9 @@ html
                 p.bar-desc= bar.desc
             .going-div
                 h3.going-header Who's going?
-                button.me-too.hide Me Too!
-                button.nah.hide Nah...
                 ul.going-list
-                each val in visitors
-                    li.going-item= val
+                .button-holder
+                    button.me-too.hide Me Too!
+                    button.nah.hide Nah...
     script(type="text/javascript" src="/common/ajax-functions.js")
     script(type="text/javascript" src="/controllers/userController.client.js")
