@@ -130,6 +130,24 @@ header a:hover {
     display: block;
 }
 
+.search-bar {
+    margin: 10px;
+}
+
+.search form {
+    text-align: right;
+}
+
+.submit {
+    padding: 10px;
+    background: #C6FF00;
+    color: #000;
+}
+
+.submit:hover {
+    background: F4FF81;
+}
+
 /*-----Image Style-----*/
 .logo-pic {
     width: 150px;
@@ -141,6 +159,10 @@ header a:hover {
 .logo-icon {
     width: 40px;
     height: 40px;
+}
+
+.yelp {
+    transform: scale(0.2, 0.2);
 }
 
 /*-----Login Page-----*/
@@ -258,55 +280,47 @@ input {
     padding: 5px;
 }
 
-.opt {
-    margin-bottom: 10px;
-}
-
-.add-opt {
-    color: #ffa000;
-    font-weight: bold;
-    font-size: 36px;
-    margin: 0px auto 20px auto;
-    width: 30px;
-}
-
 div:focus {
     outline: none !important;
 }
 
-.add-opt:hover{
-    cursor: pointer;
+/*-----Search Results Page-----*/
+.container-search {
+    background: #424242;
+    color: #FFF;
+    border-radius: 10px;
+    box-shadow: 5px 5px 25px 0px rgba(200,255,0,0.75);
+    width: 600px;
+    margin: 15px auto;
+    padding: 15px;
 }
 
-.submit {
-    background: #00695C;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
+.results-header {
+    font-size: 24px;
 }
 
-.submit:hover {
-    background: #004D40;
-    cursor: pointer;
+.result{
+    height: 100px;
 }
 
-.submit:focus {
-    outline: none;
+.barImg {
+    display: inline;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
-.submit:disabled {
-    background: #4DB6AC;
-    color: #ddd;
-    cursor: default;
+.barInfo {
+    display: inline-box;
 }
 
-.locked {
-    background: #4DB6AC;
-    color: white;
-    border: none;
+.barLink {
+    color: #C6FF00;
+    vertical-align: middle;
+}
+
+.barName {
+    display: inline;
 }
 
 /*-----Error Page-----*/
@@ -325,8 +339,4 @@ button.home {
 button.home:hover {
     background: #FFD54F;
     cursor: pointer;
-}
-
-.yelp {
-    transform: scale(0.2, 0.2);
 }

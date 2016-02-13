@@ -5,7 +5,7 @@ html
         link(rel="stylesheet" href="/client/css/main.css" type="text/css")
     include ./includes/header.jade
     body
-        .container
+        .container-search
             img.logo-header(src="/client/img/NyteLyfeLogo.png")
             .search
                 form(action="/search" method="get")
@@ -16,8 +16,9 @@ html
                 each val in bars
                     .result(id=val.id)
                         img.barImg(src=val.img)
-                        a.barLink(href="/bar/"+val.id)
-                            h2.barName= val.name
-                        p.barDesc= val.desc
+                        .barInfo
+                            a.barLink(href="/bar/"+val.id)
+                                h2.barName= val.name
+                            p.barDesc= val.desc
         script(type="text/javascript" src="/common/ajax-functions.js")
         script(type="text/javascript" src="/controllers/userController.client.js")
