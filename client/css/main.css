@@ -115,19 +115,28 @@ header a:hover {
 }
 
 /*-----Home Page-----*/
-.home-container {
+.container-home {
     width: 100%;
-    top: 40px;
-    position: absolute;
-    height: 325px;
-    background: #80CBC4;
-    z-index: -1;
-    padding-top: 50px;
+    height: 100%;
+    background: #424242;
+    padding: 20px 10px;
+    text-align: center;
+    color: #fff;
+}
+
+.container-home div {
+    display: block;
+}
+
+.container-home .search form{
+    margin-top: 15px;
     text-align: center;
 }
 
-.home-container div {
+.yelp {
     display: block;
+    margin: 5px auto;
+    /*transform: scale(0.2, 0.2);*/
 }
 
 /*-----Search Widgit-----*/
@@ -168,10 +177,6 @@ input {
 .logo-icon {
     width: 40px;
     height: 40px;
-}
-
-.yelp {
-    transform: scale(0.2, 0.2);
 }
 
 /*-----Login Page-----*/
