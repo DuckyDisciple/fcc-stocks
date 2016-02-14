@@ -168,15 +168,10 @@ input {
 
 /*-----Image Style-----*/
 .logo-pic {
-    width: 150px;
-    height: 150px;
+    width: 340px;
+    height: 80px;
     margin: 15px auto;
     display: block;
-}
-
-.logo-icon {
-    width: 40px;
-    height: 40px;
 }
 
 /*-----Login Page-----*/
@@ -204,6 +199,10 @@ a.btn {
 
 .btn:hover{
     color: #F00;
+}
+
+.login-text {
+    color: #fff;
 }
 
 /*-----Bar Page-----*/
@@ -318,8 +317,8 @@ a.btn {
 button.home {
     height: 40px;
     width: 75px;
-    background: #ffa000;
-    color: #fff;
+    background: #C6FF00;
+    color: #000;
     border: none;
     border-radius: 5px;
     margin: 20px auto 10px auto;
@@ -328,6 +327,6 @@ button.home {
 }
 
 button.home:hover {
-    background: #FFD54F;
+    background: #F4FF81;
     cursor: pointer;
 }
