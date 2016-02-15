@@ -7,10 +7,10 @@
     ---------------------------------- `-' ------------------------------- `--' ---------------
 
 
-Here is a nightlife app for Free Code Camp. It includes the following functionality:
+Here is a stock market app for Free Code Camp. It includes the following functionality:
 
 -Authentication
--Search for bars based on your location
--Check into a bar
--See who is checked in at a bar
--Decide that you would rather stay home and watch Netflix
+-View a graph of recent stock market trends
+-Add stocks by symbol or name
+-Remove stocks
+-Real time tracking of other users who follow a stock
