@@ -1,25 +1,25 @@
--var search = location || ""
 doctype html
 html
     head
-        title Nyte Lyfe
+        title Stalk Market
         link(rel="stylesheet" href="/client/css/main.css" type="text/css")
     include ./includes/header.jade
     body
         .container-home
-            img.logo-main(src="/client/img/NyteLyfeLogo.png")
+            img.logo-main(src="/client/img/StalkMarketLogo.png")
             p.home-content
-            | Welcome to Nyte Lyfe
+            | Welcome to Stalk Market
             br
-            | Your one-stop site to look up bars in your area and see where your friends are going.
-            br
-            | You must be logged in to check in and have your location remembered.
+            | For when you want to keep a close eye on your beloved stocks.
+            .graph
+                p Recently watched stocks will appear here.
+                // Insert graph here
             .search
                 form(action="/search" method="get")
-                    input.search-bar(type="text" name="loc" value=savedSearch)
+                    input.search-stock(type="text" name="stock")
                     input.submit(type="submit" value="SEARCH")
             .credit
                 p Powered by 
-                    img.yelp(src="/client/img/yelpLogo.png")
+                    img.mod(src="/client/img/modLogo.png")
     script(type="text/javascript" src="/common/ajax-functions.js")
     script(type="text/javascript" src="/controllers/userController.client.js")

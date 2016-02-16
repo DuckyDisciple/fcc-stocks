@@ -1,7 +1,7 @@
 //
-// # Passport tutorial
+// # Stalk Market
 //
-// Testing out passport with clementine tutorial
+// Testing out data visualization and web sockets with stock market app
 //
 'use strict';
 
