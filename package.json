@@ -1,7 +1,7 @@
 {
-  "name": "Nyte-Lyfe",
+  "name": "Stalk-Market",
   "version": "1.0.0",
-  "description": "App to check into bars in area",
+  "description": "App to follow stock market trends",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
