@@ -2,13 +2,6 @@
 
 var path = process.cwd();
 
-var Yelp = require('yelp');
-var yelp = new Yelp({
-                consumer_key:process.env.YELP_KEY,
-                consumer_secret: process.env.YELP_SECRET,
-                token: process.env.YELP_TOKEN,
-                token_secret: process.env.YELP_TOKEN_SECRET
-            });
 // var PollHandler = require(process.cwd()+"/app/controllers/pollHandler.server.js");
 
 var UserHandler = require(process.cwd()+"/app/controllers/userHandler.server.js");
