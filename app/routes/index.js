@@ -43,8 +43,7 @@ module.exports=function(app, passport){
     app.route('/search')
         .get(function(req, res) {
             var stock = req.query.stock;
-            //TODO - Make a request to MOD_URI
-            var apiUrl = process.env.MOD_URI + "?input=" + stock;
+            var apiUrl = process.env.MOD_SEARCH_URI + "?input=" + stock;
             request(apiUrl, function(err, response, body){
                 if(!err && response.statusCode == 200){
                     var results = JSON.parse(body);
@@ -58,19 +57,15 @@ module.exports=function(app, passport){
             res.render('profile',{});
         });
     
-    app.route('/bar/:id')
+    app.route('/stock/:symbol')
         .get(function(req, res) {
-            yelp.business(req.params.id,function(err, data){
-                if(err) throw err;
-                var bar = {
-                    id: data.id,
-                    name: data.name,
-                    img: data.image_url,
-                    phone: data.display_phone,
-                    desc: data.snippet_text,
-                    url: data.url
-                };
-                res.render('places',{bar:bar, visitors:[]});
+            var symb = req.params.symbol;
+            var apiUrl = process.env.MOD_STOCK_URI + "?symbol=" + symb;
+            request(apiUrl, function(err, response, body) {
+                if(!err && response.statusCode == 200){
+                    var info = JSON.parse(body);
+                    res.render('stock', {stock: info});
+                }
             });
         });
     

@@ -1,0 +1,18 @@
+-var formattedDate = stock.Timestamp.substring(0,stock.Timestamp.indexOf(":")-3)
+-var formattedChange = stock.ChangePercent.toPrecision(5)
+doctype html
+html
+    head
+        title= stock.Name
+        link(rel="stylesheet" href="/client/css/main.css" type="text/css")
+    include ./includes/header.jade
+    body
+        .container
+            h1.symbol= stock.Symbol
+            p.name= stock.Name
+            p.price= stock.LastPrice
+            p.date As of: #[span.stock-date= formattedDate]
+            p.change-lbl Change:
+            p.change #[span.stock-change= formattedChange]%
+        .container
+            p.graph A graph should go here
