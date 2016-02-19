@@ -2,6 +2,8 @@
 
 var path = process.cwd();
 
+var request = require('request');
+
 // var PollHandler = require(process.cwd()+"/app/controllers/pollHandler.server.js");
 
 var UserHandler = require(process.cwd()+"/app/controllers/userHandler.server.js");
@@ -40,27 +42,15 @@ module.exports=function(app, passport){
     
     app.route('/search')
         .get(function(req, res) {
-            var location = req.query.loc;
-            
-            if(req.user){
-                userHandler.setLocation(req.user.google.id,location);
-            }
-            
-            yelp.search({term: 'bar', location: location, limit: 10})
-                .then(function(data){
-                    var bars = data.businesses.map(function(val){
-                        return {
-                            name: val.name,
-                            id: val.id,
-                            img: val.image_url,
-                            desc: val.snippet_text
-                        };
-                    });
-                    res.render('searchResults',{bars: bars});
-                })
-                .catch(function(err){
-                    console.log(err);
-                });
+            var stock = req.query.stock;
+            //TODO - Make a request to MOD_URI
+            var apiUrl = process.env.MOD_URI + "?input=" + stock;
+            request(apiUrl, function(err, response, body){
+                if(!err && response.statusCode == 200){
+                    var results = JSON.parse(body);
+                    res.render('searchResults', {results: results});
+                }
+            });
         });
     
     app.route('/profile')
