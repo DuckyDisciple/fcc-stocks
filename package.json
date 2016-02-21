@@ -18,6 +18,7 @@
     "express": "^4.13.4",
     "express-generator": "^4.13.1",
     "express-session": "^1.13.0",
+    "highcharts": "^4.2.3",
     "jade": "^1.11.0",
     "mongoose": "^4.3.7",
     "passport": "^0.3.2",
