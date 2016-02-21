@@ -8,11 +8,20 @@ html
     include ./includes/header.jade
     body
         .container
-            h1.symbol= stock.Symbol
-            p.name= stock.Name
-            p.price= stock.LastPrice
-            p.date As of: #[span.stock-date= formattedDate]
-            p.change-lbl Change:
-            p.change #[span.stock-change= formattedChange]%
+            h1.stock-symbol= stock.Symbol
+            p.stock-name= stock.Name
+            p.stock-price= stock.LastPrice
+            p.stock-date As of: #[span.stock-date= formattedDate]
+            p.stock-change-lbl Change:
+            p.stock-change #[span.stock-change-data= formattedChange]%
         .container
-            p.graph A graph should go here
+            h3.watching-header Who's watching
+            ul.watching-list
+            .button-holder
+                button.watch.hide WATCH
+                button.unwatch.hide STOP WATCHING
+        .container
+            .stock-graph
+                | A graph will go here
+        script(type="text/javascript" src="/common/ajax-functions.js")
+        script(type="text/javascript" src="/controllers/userController.client.js")

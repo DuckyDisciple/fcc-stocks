@@ -5,25 +5,23 @@
     var loggedInDiv = document.querySelector(".logged-in") || null;
     var notLoggedInDiv = document.querySelector(".not-logged-in") || null;
     
-    var checkInButton = document.querySelector(".me-too") || null;
-    var checkOutButton = document.querySelector(".nah") || null;
-    var userUL = document.querySelector(".going-list") || null;
-    var barTitle = document.querySelector(".bar-name") || null;
-    var barId = document.querySelector(".bar-id") || null;
+    var watchButton = document.querySelector(".watch") || null;
+    var unwatchButton = document.querySelector(".unwatch") || null;
+    var userUL = document.querySelector(".watching-list") || null;
+    var stockName = document.querySelector(".stock-name") || null;
+    var stockSymbol = document.querySelector(".stock-symbol") || null;
     
-    var myPlacesUL = document.querySelector('.places-list') || null;
-    var locationSpan = document.querySelector('.location-span') || null;
+    var myStocksUL = document.querySelector('.stocks-list') || null;
     
     // var displayName = document.querySelector("#profile-display") || null;
     
     // var apiUrlGit = appUrl + '/api/git/:id';
     var apiUrl = appUrl + '/api/:id';
-    var checkInUrl = appUrl + '/api/checkIn/';
-    var checkOutUrl = appUrl + '/api/checkOut/';
-    var placesUrl = appUrl + '/api/places';
+    var watchUrl = appUrl + '/api/watch/';
+    var unwatchUrl = appUrl + '/api/unwatch/';
+    var watchListUrl = appUrl + '/api/watchlist';
     var userListUrl = appUrl + '/api/users/';
-    var isGoingApi = appUrl + '/api/going/';
-    var savedLocationApi = appUrl + '/api/location';
+    var isWatchingApi = appUrl + '/api/watching/';
     
     function updateHtmlElement(data, element, userProperty){
         if(userProperty==="displayName"){
@@ -34,13 +32,13 @@
             element.innerHTML = firstName;
     }
     
-    function updatePlacesList(userList,element){
+    function updateWatchersList(userList,element){
         while(element.firstChild){
             element.removeChild(element.firstChild);
         }
         if(userList.length === 0){
             var nobody = document.createElement("li");
-            nobody.innerHTML = "Nobody is going here yet";
+            nobody.innerHTML = "Nobody is watching this yet";
             element.appendChild(nobody);
         }else{
             for(var i=0; i< userList.length; i++){
@@ -73,17 +71,17 @@
     }));
     
     if(userUL !== null){
-        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",userListUrl+barId.innerHTML,function(data) {
-            updatePlacesList(JSON.parse(data),userUL);
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",userListUrl+stockSymbol.innerHTML,function(data) {
+            updateWatchersList(JSON.parse(data),userUL);
         }));
         
-        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",isGoingApi+barId.innerHTML,function(data) {
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",isWatchingApi+stockSymbol.innerHTML,function(data) {
             try{
                 var userListed = JSON.parse(data).found;
                 if(userListed){
-                    checkOutButton.className = checkOutButton.className.replace(/\bhide\b/g,'');
+                    unwatchButton.className = unwatchButton.className.replace(/\bhide\b/g,'');
                 }else{
-                    checkInButton.className = checkInButton.className.replace(/\bhide\b/g,'');
+                    watchButton.className = watchButton.className.replace(/\bhide\b/g,'');
                 }
             }catch(error){
                 //not logged in
@@ -91,60 +89,48 @@
         }));
     }
     
-    if(checkInButton !== null){
-        checkInButton.addEventListener("click",function(){
-            var myId = barId.innerHTML;
-            var myName = barTitle.innerHTML;
-            var postUrl = checkInUrl + myId + "/" + myName;
+    if(watchButton !== null){
+        watchButton.addEventListener("click",function(){
+            var mySymbol = stockSymbol.innerHTML;
+            var myName = stockName.innerHTML;
+            var postUrl = watchUrl + mySymbol + "/" + myName;
             ajaxFunctions.ajaxRequest("POST",postUrl,function(){
-                ajaxFunctions.ajaxRequest("GET",userListUrl+myId,function(data) {
-                    updatePlacesList(JSON.parse(data), userUL);
-                    checkInButton.className += " hide";
-                    checkOutButton.className = checkOutButton.className.replace(/\bhide\b/g,'');
+                ajaxFunctions.ajaxRequest("GET",userListUrl+mySymbol,function(data) {
+                    updateWatchersList(JSON.parse(data), userUL);
+                    watchButton.className += " hide";
+                    unwatchButton.className = unwatchButton.className.replace(/\bhide\b/g,'');
                 });
             });
             
         });
     }
-    if(checkOutButton !== null){
-        checkOutButton.addEventListener("click",function() {
-            var myId = barId.innerHTML;
-            var delUrl = checkOutUrl + myId;
+    if(unwatchButton !== null){
+        unwatchButton.addEventListener("click",function() {
+            var mySymbol = stockSymbol.innerHTML;
+            var delUrl = unwatchUrl + mySymbol;
             ajaxFunctions.ajaxRequest("DELETE",delUrl,function(){
-                ajaxFunctions.ajaxRequest("GET",userListUrl+myId,function(data) {
-                    updatePlacesList(JSON.parse(data), userUL);
-                    checkInButton.className = checkInButton.className.replace(/\bhide\b/g,'');
-                    checkOutButton.className += " hide";
-                })
-            })
-        })
+                ajaxFunctions.ajaxRequest("GET",userListUrl+mySymbol,function(data) {
+                    updateWatchersList(JSON.parse(data), userUL);
+                    watchButton.className = watchButton.className.replace(/\bhide\b/g,'');
+                    unwatchButton.className += " hide";
+                });
+            });
+        });
     }
     
-    if(myPlacesUL !== null){
-        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",savedLocationApi,function(data) {
-            var savedLocData = JSON.parse(data);
-            if(savedLocData.location){
-                locationSpan.innerHTML = savedLocData.location;
+    if(myStocksUL !== null){
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",watchListUrl,function(data) {
+            var stocksData = JSON.parse(data);
+            if(stocksData.length === 0){
+                var empty = document.createElement("li");
+                empty.innerHTML = "You aren't watching any stocks yet";
+                myStocksUL.appendChild(empty);
             }else{
-                locationSpan.innerHTML = "No location saved";
-            }
-        }));
-        
-        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",placesUrl,function(data) {
-            var placesData = JSON.parse(data);
-            if(placesData.length === 0){
-                var nobody = document.createElement("li");
-                nobody.innerHTML = "You haven't checked-in anywhere yet";
-                myPlacesUL.appendChild(nobody);
-            }else{
-                for(var i=0; i< placesData.length; i++){
-                    var placeLink = document.createElement("a");
-                    placeLink.className = "my-place-link";
-                    placeLink.setAttribute("href",appUrl+"/bar/"+placesData[i].id);
-                    placeLink.innerHTML = placesData[i].name;
-                    var placeListing = document.createElement("li");
-                    placeListing.appendChild(placeLink);
-                    myPlacesUL.appendChild(placeListing);
+                for(var i=0; i< stocksData.length; i++){
+                    var stockListing = document.createElement("li");
+                    stockListing.className = "my-stock";
+                    stockListing.innerHTML = stocksData[i].name + " (" + stocksData[i].symbol + ")";
+                    myStocksUL.appendChild(stockListing);
                 }
             }
         }));

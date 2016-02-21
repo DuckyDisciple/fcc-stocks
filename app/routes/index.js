@@ -69,23 +69,20 @@ module.exports=function(app, passport){
             });
         });
     
-    app.route('/api/checkIn/:id/:name')
-        .post(isLoggedIn, userHandler.checkIn);
+    app.route('/api/watch/:symbol/:name')
+        .post(isLoggedIn, userHandler.watchStock);
     
-    app.route('/api/checkOut/:id')
-        .delete(isLoggedIn, userHandler.checkOut);
+    app.route('/api/unwatch/:symbol')
+        .delete(isLoggedIn, userHandler.unwatchStock);
     
-    app.route('/api/places')
-        .get(isLoggedIn, userHandler.getPlaces);
+    app.route('/api/watchlist')
+        .get(isLoggedIn, userHandler.getStocks);
     
-    app.route('/api/users/:id')
-        .get(userHandler.getCheckIns);
+    app.route('/api/users/:symbol')
+        .get(userHandler.getWatchers);
         
-    app.route('/api/going/:id')
-        .get(isLoggedIn, userHandler.isCheckedIn);
-        
-    app.route('/api/location')
-        .get(isLoggedIn, userHandler.getLocation);
+    app.route('/api/watching/:id')
+        .get(isLoggedIn, userHandler.isWatching);
     
     // app.route('/api/location/:loc')
     //     .post(isLoggedIn, userHandler.setLocation);
