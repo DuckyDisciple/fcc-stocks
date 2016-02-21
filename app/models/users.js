@@ -10,9 +10,8 @@ var User = new Schema({
         email: String,
         token: String
     },
-    location: String,
-    places:[{
-        id: String,
+    stocks:[{
+        symbol: String,
         name: String
     }]
 });
