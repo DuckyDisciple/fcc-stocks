@@ -4,9 +4,9 @@ var Users = require("../models/users.js");
 
 function UserHandler(){
     
-    this.checkIn = function(req,res){
-        var myPlace = {id:req.params.id,name:req.params.name};
-        Users.findOneAndUpdate({'google.id': req.user.google.id},{$addToSet: {places: myPlace}})
+    this.watchStock = function(req,res){
+        var myStock = {symbol:req.params.symbol,name:req.params.name};
+        Users.findOneAndUpdate({'google.id': req.user.google.id},{$addToSet: {stocks: myStock}})
             .exec(function(err,data){
                 if(err) throw err;
                 
@@ -14,19 +14,19 @@ function UserHandler(){
             });
     };
     
-    this.getPlaces = function(req,res){
+    this.getStocks = function(req,res){
         Users.findOne({'google.id':req.user.google.id},{_id:0})
             .exec(function(err, data) {
                 if(err) throw err;
                 
-                res.json(data.places);
+                res.json(data.stocks);
             });
     };
     
-    this.checkOut = function(req,res){
+    this.unwatchStock = function(req,res){
         Users.findOneAndUpdate(
             {'google.id':req.user.google.id},
-            {$pull: {places: {id:req.params.id}}})
+            {$pull: {stocks: {symbol:req.params.symbol}}})
             .exec(function(err, data) {
                 if(err) throw err;
                 
@@ -34,24 +34,8 @@ function UserHandler(){
             });
     };
     
-    this.setLocation = function(userId,location){
-        Users.findOneAndUpdate({'google.id':userId},{$set: {'location':location}})
-        .exec(function(err,data){
-            if(err)throw err;
-            // console.log(data);
-        });
-    };
-    
-    this.getLocation = function(req,res){
-        Users.findOne({'google.id':req.user.google.id},{location:1,_id:0})
-            .exec(function(err,data){
-                if(err) throw err;
-                res.json(data);
-            })
-    }
-    
-    this.getCheckIns = function(req,res){
-        Users.find({'places.id':req.params.id})
+    this.getWatchers = function(req,res){
+        Users.find({'stocks.symbol':req.params.symbol})
             .exec(function(err,data){
                 if(err) return res.json(err);
                 var users = data.map(function(doc){
@@ -61,8 +45,8 @@ function UserHandler(){
             });
     };
     
-    this.isCheckedIn = function(req,res){
-        Users.find({'google.id':req.user.google.id,'places.id':req.params.id})
+    this.isWatching = function(req,res){
+        Users.find({'google.id':req.user.google.id,'stocks.symbol':req.params.symbol})
             .exec(function(err, data) {
                 if(err) res.json({found:false});
                 if(data.length>0){
@@ -72,18 +56,6 @@ function UserHandler(){
                 }
             });
     };
-    
-    this.loginRedirect = function(req,res){
-        Users.findOne({'google.id':req.user.google.id})
-            .exec(function(err,data){
-                if(err) throw err;
-                if(data.location){
-                    res.redirect('/search?loc='+data.location);
-                }else{
-                    res.redirect('/');
-                }
-            })
-    }
 }
 
 module.exports = UserHandler;
