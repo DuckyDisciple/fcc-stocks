@@ -37,9 +37,6 @@ module.exports=function(app, passport){
             res.redirect('/');
         });
     
-    app.route('/redirect')
-        .get(userHandler.loginRedirect);
-    
     app.route('/search')
         .get(function(req, res) {
             var stock = req.query.stock;
@@ -81,7 +78,7 @@ module.exports=function(app, passport){
     app.route('/api/users/:symbol')
         .get(userHandler.getWatchers);
         
-    app.route('/api/watching/:id')
+    app.route('/api/watching/:symbol')
         .get(isLoggedIn, userHandler.isWatching);
     
     // app.route('/api/location/:loc')
@@ -136,8 +133,8 @@ module.exports=function(app, passport){
     
     app.route('/auth/google/callback')
         .get(passport.authenticate('google',{
-            successRedirect: '/redirect',
-            failureRedirect: '/'
+            successRedirect: '/',
+            failureRedirect: '/login'
         }));
     
     // app.route('/api/:id/clicks')
