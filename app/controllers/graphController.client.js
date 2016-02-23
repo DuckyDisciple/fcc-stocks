@@ -4,11 +4,13 @@
     var singleGraph = document.querySelector(".stock-graph") || null;
     var recentsGraph = document.querySelector(".recents-graph") || null;
     
-    var Highcharts = require('highcharts/highstock');
+    var stockSymbol = document.querySelector(".stock-symbol") || null;
     
-    var chartUri = process.env.MOD_HISTORY_URI;
+    // var Highcharts = require('highcharts/highstock');
     
-    function createGraph(data){
+    var chartApi = appUrl + '/api/graph/';
+    
+    function createGraph(title, data){
         if(singleGraph !== null){
             var chart = new Highcharts.StockChart({
                 chart: {
@@ -17,15 +19,26 @@
                 rangeSelector: {
                     selected: 1
                 },
+                title: {
+                    text: title
+                },
+                plotOptions: {
+                    series: {
+                        turboThreshold: 0
+                    }
+                },
                 series: [{
-                    name: 'Stock Graph',
+                    name: 'Close',
                     data: data
                 }]
             });
         }
     }
     
-    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', chartUri, function(data){
-        createGraph(data);
-    }));
+    if(stockSymbol !== null){
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', chartApi + stockSymbol.innerHTML, function(data){
+            var info = JSON.parse(data);
+            createGraph(info.title, info.data);
+        }));
+    }
 })();

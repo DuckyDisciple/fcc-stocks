@@ -6,7 +6,8 @@ var request = require('request');
 
 // var PollHandler = require(process.cwd()+"/app/controllers/pollHandler.server.js");
 
-var UserHandler = require(process.cwd()+"/app/controllers/userHandler.server.js");
+var UserHandler = require(process.cwd() + "/app/controllers/userHandler.server.js");
+var GraphHandler = require(process.cwd() + "/app/controllers/graphHandler.server.js");
 
 module.exports=function(app, passport){
     
@@ -18,7 +19,7 @@ module.exports=function(app, passport){
         }
     }
     
-    // var pollHandler = new PollHandler();
+    var graphHandler = new GraphHandler();
     var userHandler = new UserHandler();
     
     app.route('/')
@@ -80,6 +81,9 @@ module.exports=function(app, passport){
         
     app.route('/api/watching/:symbol')
         .get(isLoggedIn, userHandler.isWatching);
+    
+    app.route('/api/graph/:symbol')
+        .get(graphHandler.getGraph);
     
     // app.route('/api/location/:loc')
     //     .post(isLoggedIn, userHandler.setLocation);
