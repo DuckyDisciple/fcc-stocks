@@ -2,7 +2,7 @@
 
 (function(){
     var singleGraph = document.querySelector(".stock-graph") || null;
-    var recentsGraph = document.querySelector(".recents-graph") || null;
+    var watchedGraph = document.querySelector(".watched-graph") || null;
     
     var stockSymbol = document.querySelector(".stock-symbol") || null;
     

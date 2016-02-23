@@ -1,13 +1,17 @@
 doctype html
 html
     head
-        title My Places
+        title My Watched Stocks
         link(rel="stylesheet" href="/client/css/main.css" type="text/css")
     include ./includes/header.jade
     body
         .container
-            h1.heading My Places
-            p.saved-location Saved Location: #[span.location-span]
-            ul.places-list
+            h1.heading #[span.name= user_name]'s Watched Stocks
+            ul.watched-list
+        .container
+            .watched-graph
+                | Loading your watched stocks...
         script(type="text/javascript" src="/common/ajax-functions.js")
+        script(type="text/javascript" src="/client/js/highstock.js")
         script(type="text/javascript" src="/controllers/userController.client.js")
+        script(type="text/javascript" src="/controllers/graphController.client.js")
