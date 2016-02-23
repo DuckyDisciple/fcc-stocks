@@ -1,3 +1,4 @@
+-var stockList = stocks ? stocks : [{symbol: null, name: null}]
 doctype html
 html
     head
@@ -6,8 +7,11 @@ html
     include ./includes/header.jade
     body
         .container
-            h1.heading #[span.name= user_name]'s Watched Stocks
-            ul.watched-list
+            h1.heading #[span.name= name]'s Watched Stocks
+            ul.stocks-list
+            each val in stockList
+                li.my-stock(id=val.symbol)
+                    a.stock-link(href="/stock/"+val.symbol) #[span= val.name] (#[span= val.symbol])
         .container
             .watched-graph
                 | Loading your watched stocks...

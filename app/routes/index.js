@@ -51,9 +51,7 @@ module.exports=function(app, passport){
         });
     
     app.route('/profile')
-        .get(isLoggedIn, function(req, res) {
-            res.render('profile',{});
-        });
+        .get(isLoggedIn, userHandler.getStocks);
     
     app.route('/stock/:symbol')
         .get(function(req, res) {

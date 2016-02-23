@@ -118,22 +118,23 @@
         });
     }
     
-    if(myStocksUL !== null){
-        ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",watchListUrl,function(data) {
-            var stocksData = JSON.parse(data);
-            if(stocksData.length === 0){
-                var empty = document.createElement("li");
-                empty.innerHTML = "You aren't watching any stocks yet";
-                myStocksUL.appendChild(empty);
-            }else{
-                for(var i=0; i< stocksData.length; i++){
-                    var stockListing = document.createElement("li");
-                    stockListing.className = "my-stock";
-                    stockListing.innerHTML = stocksData[i].name + " (" + stocksData[i].symbol + ")";
-                    myStocksUL.appendChild(stockListing);
-                }
-            }
-        }));
-    }
+    // if(myStocksUL !== null){
+    //     ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",watchListUrl,function(data) {
+    //         var stocksData = JSON.parse(data);
+    //         if(stocksData.length === 0){
+    //             var empty = document.createElement("li");
+    //             empty.innerHTML = "You aren't watching any stocks yet";
+    //             myStocksUL.appendChild(empty);
+    //         }else{
+    //             for(var i=0; i< stocksData.length; i++){
+    //                 var stockListing = document.createElement("li");
+    //                 stockListing.className = "my-stock";
+    //                 stockListing.setAttribute("id", stocksData[i].symbol);
+    //                 stockListing.innerHTML = stocksData[i].name + " (" + stocksData[i].symbol + ")";
+    //                 myStocksUL.appendChild(stockListing);
+    //             }
+    //         }
+    //     }));
+    // }
     
 })();

@@ -19,7 +19,10 @@ function UserHandler(){
             .exec(function(err, data) {
                 if(err) throw err;
                 
-                res.json(data.stocks);
+                var fullName = req.user.google.displayName;
+                var firstName = fullName.substring(0,fullName.lastIndexOf(' '));
+                
+                res.render('profile', {name: firstName, stocks: data.stocks});
             });
     };
     
