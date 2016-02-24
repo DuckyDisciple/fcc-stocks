@@ -14,6 +14,12 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var parser = require('body-parser');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+  console.log("A user connected");
+});
 
 require('./app/config/passport')(passport);
 
