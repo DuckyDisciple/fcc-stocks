@@ -89,34 +89,34 @@
         }));
     }
     
-    if(watchButton !== null){
-        watchButton.addEventListener("click",function(){
-            var mySymbol = stockSymbol.innerHTML;
-            var myName = stockName.innerHTML;
-            var postUrl = watchUrl + mySymbol + "/" + myName;
-            ajaxFunctions.ajaxRequest("POST",postUrl,function(){
-                ajaxFunctions.ajaxRequest("GET",userListUrl+mySymbol,function(data) {
-                    updateWatchersList(JSON.parse(data), userUL);
-                    watchButton.className += " hide";
-                    unwatchButton.className = unwatchButton.className.replace(/\bhide\b/g,'');
-                });
-            });
+    // if(watchButton !== null){
+    //     watchButton.addEventListener("click",function(){
+    //         var mySymbol = stockSymbol.innerHTML;
+    //         var myName = stockName.innerHTML;
+    //         var postUrl = watchUrl + mySymbol + "/" + myName;
+    //         ajaxFunctions.ajaxRequest("POST",postUrl,function(){
+    //             ajaxFunctions.ajaxRequest("GET",userListUrl+mySymbol,function(data) {
+    //                 updateWatchersList(JSON.parse(data), userUL);
+    //                 watchButton.className += " hide";
+    //                 unwatchButton.className = unwatchButton.className.replace(/\bhide\b/g,'');
+    //             });
+    //         });
             
-        });
-    }
-    if(unwatchButton !== null){
-        unwatchButton.addEventListener("click",function() {
-            var mySymbol = stockSymbol.innerHTML;
-            var delUrl = unwatchUrl + mySymbol;
-            ajaxFunctions.ajaxRequest("DELETE",delUrl,function(){
-                ajaxFunctions.ajaxRequest("GET",userListUrl+mySymbol,function(data) {
-                    updateWatchersList(JSON.parse(data), userUL);
-                    watchButton.className = watchButton.className.replace(/\bhide\b/g,'');
-                    unwatchButton.className += " hide";
-                });
-            });
-        });
-    }
+    //     });
+    // }
+    // if(unwatchButton !== null){
+    //     unwatchButton.addEventListener("click",function() {
+    //         var mySymbol = stockSymbol.innerHTML;
+    //         var delUrl = unwatchUrl + mySymbol;
+    //         ajaxFunctions.ajaxRequest("DELETE",delUrl,function(){
+    //             ajaxFunctions.ajaxRequest("GET",userListUrl+mySymbol,function(data) {
+    //                 updateWatchersList(JSON.parse(data), userUL);
+    //                 watchButton.className = watchButton.className.replace(/\bhide\b/g,'');
+    //                 unwatchButton.className += " hide";
+    //             });
+    //         });
+    //     });
+    // }
     
     // if(myStocksUL !== null){
     //     ajaxFunctions.ready(ajaxFunctions.ajaxRequest("GET",watchListUrl,function(data) {
