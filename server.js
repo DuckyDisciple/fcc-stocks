@@ -20,6 +20,16 @@ var io = require('socket.io')(http);
 
 io.on('connection', function(socket){
   console.log("A user connected");
+  
+  socket.on("watch",function(msg){
+    console.log("Someone watched");
+    io.emit("update", "watched");
+  });
+  
+  socket.on("unwatch",function(msg){
+    console.log("Someone unwatched");
+    io.emit("update", "unwatched");
+  });
 });
 
 require('./app/config/passport')(passport);
