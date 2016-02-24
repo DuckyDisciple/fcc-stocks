@@ -82,6 +82,9 @@ module.exports=function(app, passport){
     
     app.route('/api/graph/:symbol')
         .get(graphHandler.getGraph);
+        
+    app.route('/api/my/:symbols')
+        .get(graphHandler.getMyGraph);
     
     // app.route('/api/location/:loc')
     //     .post(isLoggedIn, userHandler.setLocation);
