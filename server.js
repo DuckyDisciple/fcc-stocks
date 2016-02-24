@@ -14,6 +14,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var parser = require('body-parser');
+
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -55,6 +56,6 @@ app.use(function(req,res,next){
 });
 
 var port = process.env.PORT || 8080;
-app.listen(port, function(){
+http.listen(port, function(){
   console.log("Listening on port " + port);
 });
