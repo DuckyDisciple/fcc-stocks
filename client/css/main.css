@@ -184,6 +184,13 @@ nav {
 }
 
 /*-----Login Page-----*/
+.logo-pic {
+    height: 300px;
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
 a.btn {
     text-decoration: none;
 }
@@ -211,7 +218,7 @@ a.btn {
 }
 
 .login-text {
-    color: #fff;
+    color: #000;
 }
 
 /*-----Bar Page-----*/
