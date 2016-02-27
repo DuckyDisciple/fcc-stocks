@@ -268,13 +268,22 @@ a.btn {
 
 /*-----Search Results Page-----*/
 .container-search {
-    background: #424242;
+    background: #1e0041;
     color: #FFF;
     border-radius: 10px;
-    box-shadow: 5px 5px 25px 0px rgba(200,255,0,0.75);
-    width: 600px;
+    width: 400px;
     margin: 15px auto;
     padding: 15px;
+}
+
+.logo-results {
+    height: 75px;
+    width: 75px;
+    float: left;
+}
+
+.search {
+    margin: 15px auto 0 auto;
 }
 
 .results-header {
@@ -288,28 +297,20 @@ a.btn {
     border-style: solid;
     border-radius: 3px;
     padding: 5px;
-    text-align: left;
-    height: 100px;
+    text-align: center;
 }
 
-.barImg {
-    display: inline;
-    float: left;
-    margin-right: 10px;
-    margin-bottom: 10px;
+.result h2 {
+    margin: 5px auto 10px auto;
 }
 
-.barInfo {
-    display: inline-box;
+.stock-link {
+    color: #ec2525;
+    text-decoration: none;
 }
 
-.barLink {
-    color: #C6FF00;
-    vertical-align: middle;
-}
-
-.barName {
-    display: inline;
+.stock-link:hover {
+    color: #f34848;
 }
 
 /*-----My Places-----*/
