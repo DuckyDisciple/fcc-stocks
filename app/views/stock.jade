@@ -7,20 +7,20 @@ html
         link(rel="stylesheet" href="/client/css/main.css" type="text/css")
     include ./includes/header.jade
     body
-        .container
+        .container.stock-info
             h1.stock-symbol= stock.Symbol
             p.stock-name= stock.Name
             p.stock-price= stock.LastPrice
             p.stock-date As of: #[span.stock-date= formattedDate]
             p.stock-change-lbl Change:
             p.stock-change #[span.stock-change-data= formattedChange]%
-        .container
+        .container.watchers
             h3.watching-header Who's watching
             ul.watching-list
             .button-holder
                 button.watch.hide WATCH
                 button.unwatch.hide STOP WATCHING
-        .container
+        .container.graph
             .stock-graph
                 | A graph will go here
         script(type="text/javascript" src="/common/ajax-functions.js")

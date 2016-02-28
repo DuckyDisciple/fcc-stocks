@@ -18,9 +18,8 @@ p {
     background: #1e0041;
     color: #FFF;
     border-radius: 10px;
-    box-shadow: 5px 5px 25px 0px rgba(200,255,0,0.75);
     width: 400px;
-    margin: 15px auto;
+    margin: 15px auto;    
     padding: 15px;
 }
 
@@ -221,35 +220,34 @@ a.btn {
     color: #000;
 }
 
-/*-----Bar Page-----*/
-.bar-name {
-    font-size: 32px;
-    color: #C6FF00;
-    margin-bottom: 15px;
+/*-----Stock Info Page-----*/
+.stock-info {
+    height: 275px;
+    margin: 10px;
 }
 
-.yelpLink {
-    text-decoration: none;
+.stock-symbol {
+    color: #ec2525;
 }
 
-.details {
-    margin-bottom: 15px;
+.watchers {
+    height: 275px;
+    margin: 10px;
 }
 
-.bar-phone {
-    color: #c3c3c3;
-    font-style: italic;
+.watching-header {
+    color: #ec2525;
 }
 
-.going-div {
-    border-radius: 10px;
-    border-color: #fff;
-    border-width: 1px;
-    border-style: solid;
+.graph {
+    margin: 10px;
 }
 
-.going-header {
-    margin: 5px;
+@media(max-width:1000px){
+    body {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .button-holder button {
