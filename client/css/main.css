@@ -228,6 +228,34 @@ a.btn {
 
 .stock-symbol {
     color: #ec2525;
+    margin-bottom: 0;
+}
+
+.stock-name {
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+.stock-price {
+    color: #ec2525;
+}
+
+.stock-change-lbl {
+    font-weight: bold;
+}
+
+.stock-change {
+    margin-top: 2px;
+}
+
+.stock-date {
+    font-style: italic;
+    font-size: .9em;
+    font-weight: bold;
+}
+
+span.stock-date {
+    font-weight: normal;
 }
 
 .watchers {
@@ -244,7 +272,7 @@ a.btn {
 }
 
 @media(max-width:1000px){
-    body {
+    body.stocks {
         flex-direction: column;
         align-items: center;
     }
@@ -311,29 +339,16 @@ a.btn {
     color: #f34848;
 }
 
-/*-----My Places-----*/
-
-.my-place-link {
-    color: #C6FF00;
-    text-decoration: none;
-    font-size: 22px;
-}
-
-.saved-location {
-    color: #c3c3c3;
-    font-weight: bold;
-}
-
-.location-span {
-    font-weight: 300;
-}
-
 /*-----Error Page-----*/
+.error-div {
+    align-self: flex-start;
+}
+
 button.home {
     height: 40px;
     width: 75px;
-    background: #C6FF00;
-    color: #000;
+    background: #ec2525;
+    color: #fff;
     border: none;
     border-radius: 5px;
     margin: 20px auto 10px auto;
@@ -342,6 +357,6 @@ button.home {
 }
 
 button.home:hover {
-    background: #F4FF81;
+    background: #f34848;
     cursor: pointer;
 }
