@@ -1,4 +1,9 @@
 /*-----Main Style-----*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
@@ -63,6 +68,7 @@ header {
     color: #FFF;
     height: 40px;
     top: 0;
+    left: 0;
     padding: 0 10px 15px 10px;
     font-weight: 300;
     display: flex;
@@ -269,6 +275,7 @@ span.stock-date {
 
 .graph {
     margin: 10px;
+    overflow: hidden;
 }
 
 @media(max-width:1000px){
