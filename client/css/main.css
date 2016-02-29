@@ -290,13 +290,13 @@ span.stock-date {
     border-radius: 5px;
     margin: 10px;
     padding: 5px;
-    background: #C6FF00;
+    background: #ec2525;
     font-weight: bold;
 }
 
 .button-holder button:hover {
     cursor: pointer;
-    background: #F4FF81;
+    background: #f34848;
 }
 
 /*-----Search Results Page-----*/
